@@ -6,6 +6,7 @@
 package com.akhdanaudi.sobat.controllers;
 
 import com.akhdanaudi.sobat.database.ObatDataSource;
+import com.akhdanaudi.sobat.models.JenisObat;
 import com.akhdanaudi.sobat.models.Obat;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,27 +24,19 @@ public class ObatController {
     public ObatController() {
         obatDataSource = new ObatDataSource();
         initTable();
+        loadTableData();
     }
     
     public DefaultTableModel getTableModel() {
         return tableModel;
     }
     
-    private void addRowTable(Obat obat) {
-        tableModel.addRow(new Object[] {
-            obat.getId(),
-            obat.getKodeObat(),
-            obat.getNamaObat(),
-            obat.getJenisObatId(),
-            obat.getHargaObat(),
-            obat.getStokObat()
-        });
-    }
-    
-    public void initTable() {
+    private void initTable() {
         String columns[] = {"ID", "Kode", "Nama", "Jenis", "Harga", "Stok"};
         tableModel = new DefaultTableModel(columns, 0);
-        
+    }
+    
+    public void loadTableData() {
         try {
             List<Obat> obatList = obatDataSource.getAllObat();
             for (Obat obat : obatList) {
@@ -52,6 +45,17 @@ public class ObatController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void addRowTable(Obat obat) {
+        tableModel.addRow(new Object[] {
+            obat.getId(),
+            obat.getKodeObat(),
+            obat.getNamaObat(),
+            obat.getJenisObatNama(),
+            obat.getHargaObat(),
+            obat.getStokObat()
+        });
     }
     
     public ArrayList<String> validateInput(String kode, String nama, String jenis, String harga, int stok) {
@@ -89,7 +93,34 @@ public class ObatController {
         obatDataSource.save(obat);
     }
     
+    public void updateFromDatabase(String kode, String nama, int jenis, int harga, int stok, int id) throws SQLException {
+        Obat obat = new Obat();
+        obat.setId(id);
+        obat.setKodeObat(kode);
+        obat.setNamaObat(nama);
+        obat.setJenisObatId(jenis);
+        obat.setHargaObat(harga);
+        obat.setStokObat(stok);
+        obatDataSource.update(obat);
+    }
+    
     public void deleteFromDatabase(int id) throws SQLException {
         obatDataSource.delete(id);
+    }
+    
+    public int getJumlahObat() {
+        try {
+          return obatDataSource.countObat();
+        } catch (SQLException e) {
+          return 0;
+        }
+    }
+    
+    public List<JenisObat> getJenisObat() {
+        try {
+          return obatDataSource.getJenisObat();
+        } catch (SQLException e) {
+          return new ArrayList<>();
+        }
     }
 }

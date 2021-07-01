@@ -25,10 +25,10 @@ public class ViewController {
         frame.setTitle("Sobat: Sistem Obat");
         frame.setSize(800, 600);
         
-        panel = new JPanel(new CardLayout());
-        panel.add(new MenuView(this), "Menu Utama");
-        
         ObatController obatController = new ObatController();
+        
+        panel = new JPanel(new CardLayout());
+        panel.add(new MenuView(this, obatController), "Menu Utama");
         panel.add(new ObatView(this, obatController), "Menu Obat");
         
         panel.add(new PenjualanView(this), "Menu Penjualan");

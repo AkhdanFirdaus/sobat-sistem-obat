@@ -6,12 +6,14 @@ com\akhdanaudi\sobat\views\MenuView.class
 com\akhdanaudi\sobat\MainActivity$1.class
 com\akhdanaudi\sobat\views\ObatView$3.class
 com\akhdanaudi\sobat\views\MenuView$1.class
+com\akhdanaudi\sobat\models\JenisObat.class
 com\akhdanaudi\sobat\models\Obat.class
 com\akhdanaudi\sobat\controllers\ObatController.class
 com\akhdanaudi\sobat\views\MenuView$2.class
 com\akhdanaudi\sobat\MainActivity.class
 com\akhdanaudi\sobat\views\ObatView$2.class
 com\akhdanaudi\sobat\controllers\ViewController.class
+com\akhdanaudi\sobat\views\MenuView$3.class
 com\akhdanaudi\sobat\views\ObatView$5.class
 com\akhdanaudi\sobat\database\Koneksi.class
 com\akhdanaudi\sobat\views\ObatView$1.class

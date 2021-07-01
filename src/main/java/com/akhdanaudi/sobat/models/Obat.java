@@ -14,6 +14,7 @@ public class Obat {
     private String kodeObat;
     private String namaObat;
     private int jenisObatId;
+    private String jenisObatNama;
     private int hargaObat;
     private int stokObat;
     
@@ -47,6 +48,14 @@ public class Obat {
     
     public void setJenisObatId(int jenisObatId) {
         this.jenisObatId = jenisObatId;
+    }
+    
+    public String getJenisObatNama() {
+        return this.jenisObatNama;
+    }
+    
+    public void setJenisObatNama(String jenisObatNama) {
+        this.jenisObatNama = jenisObatNama;
     }
     
     public int getHargaObat() {

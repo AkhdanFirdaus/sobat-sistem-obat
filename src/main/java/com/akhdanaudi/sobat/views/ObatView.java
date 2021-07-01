@@ -7,8 +7,10 @@ package com.akhdanaudi.sobat.views;
 
 import com.akhdanaudi.sobat.controllers.ObatController;
 import com.akhdanaudi.sobat.controllers.ViewController;
+import com.akhdanaudi.sobat.models.JenisObat;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,6 +22,7 @@ import javax.swing.event.ListSelectionListener;
 public class ObatView extends javax.swing.JPanel {
     ViewController viewController;
     ObatController controller;
+    private List<JenisObat> listJenis;
     /**
      * Creates new form ObatView
      * @param viewController
@@ -35,27 +38,52 @@ public class ObatView extends javax.swing.JPanel {
         delete_btn.setVisible(false);
         
         //Load combobox dummy
-        jenis_obat_id_cmb.addItem("Pilih Jenis");
-        jenis_obat_id_cmb.addItem("Obat 1");
-        jenis_obat_id_cmb.addItem("Obat 2");
-        jenis_obat_id_cmb.addItem("Obat 3");
+        initCombobox();
         
         tabelObat.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
                 if (!tabelObat.getSelectionModel().isSelectionEmpty()) {
-                    id_obat_field.setText(tabelObat.getValueAt(tabelObat.getSelectedRow(), 0).toString());
-                    kode_obat_field.setText(tabelObat.getValueAt(tabelObat.getSelectedRow(), 1).toString());
-                    nama_obat_field.setText(tabelObat.getValueAt(tabelObat.getSelectedRow(), 2).toString());
-                    jenis_obat_id_cmb.setSelectedIndex((int) tabelObat.getValueAt(tabelObat.getSelectedRow(), 3));
-                    harga_obat_field.setText(tabelObat.getValueAt(tabelObat.getSelectedRow(), 4).toString());
-                    stok_obat_field.setValue((int) tabelObat.getValueAt(tabelObat.getSelectedRow(), 5));
+                    int baris = tabelObat.getSelectedRow();
+                    id_obat_field.setText(tabelObat.getValueAt(baris, 0).toString());
+                    kode_obat_field.setText(tabelObat.getValueAt(baris, 1).toString());
+                    nama_obat_field.setText(tabelObat.getValueAt(baris, 2).toString());
+                    
+                    String cariJenis = tabelObat.getValueAt(baris, 3).toString();
+                    JenisObat jenis = listJenis.stream()
+                            .filter(item -> cariJenis.equals(item.getNamaJenis()))
+                            .findAny()
+                            .orElse(null);
+                    jenis_obat_id_cmb.setSelectedIndex(jenis.getJenisId());
+                    
+                    harga_obat_field.setText(tabelObat.getValueAt(baris, 4).toString());
+                    stok_obat_field.setValue((int) tabelObat.getValueAt(baris, 5));
                     delete_btn.setVisible(true);
+                    save_btn.setText("Update");
                 } else {
                     delete_btn.setVisible(false);
+                    save_btn.setText("Simpan");
                 }
             }
         });
+    }
+    
+    private void initCombobox(){
+        listJenis = controller.getJenisObat();
+        jenis_obat_id_cmb.addItem("Pilih Jenis");
+        for (JenisObat jenis : listJenis) {
+            jenis_obat_id_cmb.addItem(jenis.getNamaJenis());
+        }
+    }
+    
+    private void resetForm() {
+        id_obat_field.setText("");
+        kode_obat_field.setText("");
+        nama_obat_field.setText("");
+        jenis_obat_id_cmb.setSelectedIndex(0);
+        harga_obat_field.setText("");
+        stok_obat_field.setValue((int) 0);
+        tabelObat.getSelectionModel().clearSelection();
     }
 
     /**
@@ -257,13 +285,7 @@ public class ObatView extends javax.swing.JPanel {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void reset_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_btnActionPerformed
-        id_obat_field.setText("");
-        kode_obat_field.setText("");
-        nama_obat_field.setText("");
-        jenis_obat_id_cmb.setSelectedIndex(0);
-        harga_obat_field.setText("");
-        stok_obat_field.setValue((int) 0);
-        tabelObat.getSelectionModel().clearSelection();
+        resetForm();
     }//GEN-LAST:event_reset_btnActionPerformed
 
     private void save_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_btnActionPerformed
@@ -279,16 +301,30 @@ public class ObatView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, concatMessages);
         } else {
             try {
-                controller.saveToDatabase(
-                    kode, 
-                    nama, 
-                    Integer.parseInt(jenis), 
-                    Integer.parseInt(harga),
-                    stok
-                );
-                JOptionPane.showMessageDialog(this, "Sukses Menyimpan Data!");
-                controller.getTableModel().fireTableDataChanged();
-                controller.initTable();
+                if (id_obat_field.getText().isEmpty()) {
+                    controller.saveToDatabase(
+                        kode, 
+                        nama, 
+                        Integer.parseInt(jenis), 
+                        Integer.parseInt(harga),
+                        stok
+                    );
+                    JOptionPane.showMessageDialog(this, "Sukses Menyimpan Data!");
+                    resetForm();
+                } else {
+                    int id = Integer.parseInt(id_obat_field.getText());
+                    controller.updateFromDatabase(
+                        kode, 
+                        nama, 
+                        Integer.parseInt(jenis), 
+                        Integer.parseInt(harga),
+                        stok,
+                        id
+                    );
+                    JOptionPane.showMessageDialog(this, "Sukses Mengupdate Data " + kode + "!");
+                }
+                controller.getTableModel().setRowCount(0);
+                controller.loadTableData();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, "Gagal Menyimpan Data " + e.toString());
             }
@@ -299,8 +335,9 @@ public class ObatView extends javax.swing.JPanel {
         try {
             controller.deleteFromDatabase(Integer.parseInt(id_obat_field.getText()));
             JOptionPane.showMessageDialog(this, "Sukses Menghapus Obat " + nama_obat_field.getText() + "!");
-            controller.getTableModel().fireTableDataChanged();
-            controller.initTable();
+            controller.getTableModel().setRowCount(0);
+            controller.loadTableData();
+            resetForm();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Gagal Menyimpan Data " + e.toString());
         }

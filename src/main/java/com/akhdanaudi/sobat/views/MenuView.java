@@ -5,9 +5,11 @@
  */
 package com.akhdanaudi.sobat.views;
 
+import com.akhdanaudi.sobat.controllers.ObatController;
 import com.akhdanaudi.sobat.controllers.ViewController;
 import java.awt.CardLayout;
 import java.awt.Container;
+import javax.swing.Box;
 
 /**
  *
@@ -15,14 +17,23 @@ import java.awt.Container;
  */
 public class MenuView extends javax.swing.JPanel {
     ViewController controller;
+    ObatController obatController;
 
     /**
      * Creates new form HomeView
      * @param controller
+     * @param jumlahObat
      */
-    public MenuView(ViewController controller) {
+    public MenuView(ViewController controller, ObatController obatController) {
         initComponents();
         this.controller = controller;
+        this.obatController = obatController;
+        loadJumlahObat();
+    }
+    
+    public void loadJumlahObat() {
+        int jumlahObat = obatController.getJumlahObat();
+        jumlah_obat_lbl.setText(String.valueOf(jumlahObat));
     }
 
     /**
@@ -35,12 +46,17 @@ public class MenuView extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         menu_items = new javax.swing.JPanel();
         menu_obat = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jumlah_obat_lbl = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         menu_penjual = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -53,21 +69,99 @@ public class MenuView extends javax.swing.JPanel {
         setLayout(new java.awt.GridLayout(2, 0));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        jPanel5.setLayout(new java.awt.BorderLayout());
+        jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
+
+        jButton1.setText("Refresh Data");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton1);
+
+        jPanel5.add(jPanel4);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("SOBAT");
-        jPanel5.add(jLabel4, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 452, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 171, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addGap(0, 172, Short.MAX_VALUE)))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 44, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jPanel5.add(jPanel3);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Sistem Informasi Obat");
-        jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 452, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 107, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGap(0, 107, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jPanel5.add(jPanel2);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Akhdan Musyaffa Firdaus & Zulfa Dwi Audina");
-        jPanel5.add(jLabel9, java.awt.BorderLayout.PAGE_END);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 452, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 118, Short.MAX_VALUE)
+                    .addComponent(jLabel9)
+                    .addGap(0, 119, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel9)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jPanel5.add(jPanel1);
 
         add(jPanel5);
 
@@ -82,10 +176,10 @@ public class MenuView extends javax.swing.JPanel {
         });
         menu_obat.setLayout(new java.awt.BorderLayout());
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("20");
-        menu_obat.add(jLabel5, java.awt.BorderLayout.PAGE_START);
+        jumlah_obat_lbl.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jumlah_obat_lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jumlah_obat_lbl.setText("20");
+        menu_obat.add(jumlah_obat_lbl, java.awt.BorderLayout.PAGE_START);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Obat");
@@ -138,18 +232,27 @@ public class MenuView extends javax.swing.JPanel {
         controller.changeView("Menu Penjualan");
     }//GEN-LAST:event_menu_penjualMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        loadJumlahObat();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel jumlah_obat_lbl;
     private javax.swing.JPanel menu_items;
     private javax.swing.JPanel menu_laporan;
     private javax.swing.JPanel menu_obat;

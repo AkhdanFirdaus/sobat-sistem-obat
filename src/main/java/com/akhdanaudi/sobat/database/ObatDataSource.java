@@ -5,6 +5,7 @@
  */
 package com.akhdanaudi.sobat.database;
 
+import com.akhdanaudi.sobat.models.JenisObat;
 import com.akhdanaudi.sobat.models.Obat;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,20 +53,49 @@ public class ObatDataSource {
     }
     
     public List<Obat>  getAllObat() throws SQLException {
-        String query = "SELECT * FROM obat";
+        String query = "SELECT obat.*, obat_jenis.jenis_nama "
+                + "FROM obat "
+                + "INNER JOIN obat_jenis ON obat_jenis.id = obat.jenis_obat_id";
         Connection koneksi = Koneksi.getKoneksi();
         ResultSet result = koneksi.createStatement().executeQuery(query);
         List<Obat> listObat = new ArrayList<>();
         while (result.next()) {
             Obat obat = new Obat();
-            obat.setId(result.getInt("id"));
-            obat.setKodeObat(result.getString("kode_obat"));
-            obat.setNamaObat(result.getString("nama_obat"));
-            obat.setJenisObatId(result.getInt("jenis_obat_id"));
-            obat.setHargaObat(result.getInt("harga_obat"));
-            obat.setStokObat(result.getInt("stok_obat"));
+            obat.setId(result.getInt("obat.id"));
+            obat.setKodeObat(result.getString("obat.kode_obat"));
+            obat.setNamaObat(result.getString("obat.nama_obat"));
+            obat.setJenisObatId(result.getInt("obat.jenis_obat_id"));
+            obat.setJenisObatNama(result.getString("obat_jenis.jenis_nama"));
+            obat.setHargaObat(result.getInt("obat.harga_obat"));
+            obat.setStokObat(result.getInt("obat.stok_obat"));
             listObat.add(obat);
         }
         return listObat;
+    }
+    
+    public int countObat() throws SQLException {
+        String query = "SELECT COUNT(*) AS jmlObat FROM obat";
+        Connection koneksi = Koneksi.getKoneksi();
+        ResultSet result = koneksi.createStatement().executeQuery(query);
+        int count = 0;
+        while (result.next()) {
+            count = result.getInt("jmlObat");
+        }
+        return count;
+    }
+    
+    
+    public List<JenisObat> getJenisObat() throws SQLException {
+        String query = "SELECT * FROM obat_jenis";
+        Connection koneksi = Koneksi.getKoneksi();
+        ResultSet result = koneksi.createStatement().executeQuery(query);
+        List<JenisObat> listJenisObat = new ArrayList<>();
+        while (result.next()) {
+            JenisObat jenis = new JenisObat();
+            jenis.setJenisId(result.getInt("id"));
+            jenis.setNamaJenis(result.getString("jenis_nama"));
+            listJenisObat.add(jenis);
+        }
+        return listJenisObat;
     }
 }
