@@ -37,6 +37,7 @@ public class ObatController {
     }
     
     public void loadTableData() {
+        getTableModel().setRowCount(0);
         try {
             List<Obat> obatList = obatDataSource.getAllObat();
             for (Obat obat : obatList) {

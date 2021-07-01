@@ -1,9 +1,15 @@
 C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\views\PenjualanView.java
+C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\models\JenisObat.java
 C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\controllers\ObatController.java
-C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\views\MenuView.java
-C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\models\Obat.java
 C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\views\ObatView.java
 C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\controllers\ViewController.java
 C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\MainActivity.java
+C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\models\Penjualan.java
+C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\database\PenjualanDataSource.java
+C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\controllers\PenjualanController.java
+C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\views\MenuView.java
+C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\models\DetailPenjualan.java
+C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\models\Obat.java
+C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\views\BuatPenjualanView.java
 C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\database\ObatDataSource.java
 C:\Users\akhda\Documents\NetBeansProjects\Sobat\src\main\java\com\akhdanaudi\sobat\database\Koneksi.java

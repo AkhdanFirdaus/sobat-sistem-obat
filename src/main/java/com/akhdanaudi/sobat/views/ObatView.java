@@ -37,7 +37,6 @@ public class ObatView extends javax.swing.JPanel {
         tabelObat.setModel(this.controller.getTableModel());
         delete_btn.setVisible(false);
         
-        //Load combobox dummy
         initCombobox();
         
         tabelObat.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -323,7 +322,6 @@ public class ObatView extends javax.swing.JPanel {
                     );
                     JOptionPane.showMessageDialog(this, "Sukses Mengupdate Data " + kode + "!");
                 }
-                controller.getTableModel().setRowCount(0);
                 controller.loadTableData();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, "Gagal Menyimpan Data " + e.toString());
@@ -335,7 +333,6 @@ public class ObatView extends javax.swing.JPanel {
         try {
             controller.deleteFromDatabase(Integer.parseInt(id_obat_field.getText()));
             JOptionPane.showMessageDialog(this, "Sukses Menghapus Obat " + nama_obat_field.getText() + "!");
-            controller.getTableModel().setRowCount(0);
             controller.loadTableData();
             resetForm();
         } catch (SQLException e) {

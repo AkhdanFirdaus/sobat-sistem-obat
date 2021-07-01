@@ -5,6 +5,7 @@
  */
 package com.akhdanaudi.sobat.controllers;
 
+import com.akhdanaudi.sobat.views.BuatPenjualanView;
 import com.akhdanaudi.sobat.views.MenuView;
 import com.akhdanaudi.sobat.views.ObatView;
 import com.akhdanaudi.sobat.views.PenjualanView;
@@ -26,12 +27,13 @@ public class ViewController {
         frame.setSize(800, 600);
         
         ObatController obatController = new ObatController();
+        PenjualanController penjualanController = new PenjualanController();
         
         panel = new JPanel(new CardLayout());
-        panel.add(new MenuView(this, obatController), "Menu Utama");
+        panel.add(new MenuView(this, obatController, penjualanController), "Menu Utama");
         panel.add(new ObatView(this, obatController), "Menu Obat");
-        
-        panel.add(new PenjualanView(this), "Menu Penjualan");
+        panel.add(new BuatPenjualanView(this, penjualanController), "Menu Buat Penjualan");
+        panel.add(new PenjualanView(this, penjualanController), "Menu Penjualan");
         frame.add(panel);
     }
     

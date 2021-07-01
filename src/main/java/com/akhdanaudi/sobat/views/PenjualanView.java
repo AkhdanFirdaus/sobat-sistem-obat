@@ -5,22 +5,45 @@
  */
 package com.akhdanaudi.sobat.views;
 
+import com.akhdanaudi.sobat.controllers.PenjualanController;
 import com.akhdanaudi.sobat.controllers.ViewController;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author akhda
  */
 public class PenjualanView extends javax.swing.JPanel {
-    ViewController controller;
+    ViewController viewController;
+    PenjualanController controller;
 
     /**
      * Creates new form ObatView
+     * @param viewController
      * @param controller
      */
-    public PenjualanView(ViewController controller) {
+    public PenjualanView(ViewController viewController, PenjualanController controller) {
         initComponents();
+        this.viewController = viewController;
         this.controller = controller;
+        
+        tabelPenjualan.setModel(controller.getTableModel());
+        tabelDetail.setModel(controller.getTableDetailModel());
+        
+        tabelPenjualan.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if (!tabelPenjualan.getSelectionModel().isSelectionEmpty()) {
+                    int baris = tabelPenjualan.getSelectedRow();
+                    int idPenjualan = Integer.parseInt(tabelPenjualan.getValueAt(baris, 0).toString());
+                    int total = controller.setDetail(idPenjualan);
+                    total_price_lbl.setText("Total: Rp." + String.valueOf(total));
+                } else {
+                    total_price_lbl.setText("Total: Rp.0");
+                }
+            }
+        });
     }
 
     /**
@@ -32,159 +55,115 @@ public class PenjualanView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        atas = new javax.swing.JPanel();
-        form = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        kode_obat = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        nama_obat = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jenis_obat_id = new javax.swing.JComboBox<>();
-        jPanel6 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        backButton = new javax.swing.JToggleButton();
+        reset_btn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        harga_obat = new javax.swing.JTextField();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        stok_obat = new javax.swing.JSpinner();
-        button = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelPenjualan = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        total_price_lbl = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelDetail = new javax.swing.JTable();
 
-        setLayout(new java.awt.GridLayout(2, 0));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(16, 16, 16, 16));
+        setLayout(new java.awt.GridLayout(5, 0));
 
-        atas.setBorder(javax.swing.BorderFactory.createEmptyBorder(16, 16, 16, 16));
-        atas.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
 
-        form.setLayout(new java.awt.GridLayout(6, 0));
+        backButton.setText("Kembali");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(backButton);
 
-        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
+        reset_btn.setText("Reset");
+        reset_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reset_btnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(reset_btn);
 
-        jLabel3.setText("Kode");
-        jLabel3.setPreferredSize(new java.awt.Dimension(30, 14));
-        jPanel3.add(jLabel3);
+        add(jPanel1);
 
-        kode_obat.setMinimumSize(new java.awt.Dimension(20, 20));
-        kode_obat.setPreferredSize(new java.awt.Dimension(240, 20));
-        jPanel3.add(kode_obat);
+        jLabel1.setText("Data Penjualan");
+        add(jLabel1);
 
-        form.add(jPanel3);
-
-        jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
-
-        jLabel5.setText("Nama");
-        jLabel5.setPreferredSize(new java.awt.Dimension(30, 14));
-        jPanel5.add(jLabel5);
-
-        nama_obat.setMinimumSize(new java.awt.Dimension(20, 20));
-        nama_obat.setPreferredSize(new java.awt.Dimension(240, 20));
-        jPanel5.add(nama_obat);
-
-        form.add(jPanel5);
-
-        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
-
-        jLabel4.setText("Jenis");
-        jLabel4.setPreferredSize(new java.awt.Dimension(30, 14));
-        jPanel4.add(jLabel4);
-
-        jenis_obat_id.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jenis_obat_id.setPreferredSize(new java.awt.Dimension(240, 20));
-        jPanel4.add(jenis_obat_id);
-
-        form.add(jPanel4);
-
-        jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
-
-        jLabel1.setText("Harga");
-        jLabel1.setPreferredSize(new java.awt.Dimension(30, 14));
-        jPanel6.add(jLabel1);
-
-        harga_obat.setMinimumSize(new java.awt.Dimension(20, 20));
-        harga_obat.setPreferredSize(new java.awt.Dimension(240, 20));
-        jPanel6.add(harga_obat);
-
-        form.add(jPanel6);
-
-        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
-
-        jLabel6.setText("Stok");
-        jLabel6.setPreferredSize(new java.awt.Dimension(30, 14));
-        jPanel7.add(jLabel6);
-
-        stok_obat.setPreferredSize(new java.awt.Dimension(240, 20));
-        jPanel7.add(stok_obat);
-
-        form.add(jPanel7);
-
-        button.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
-
-        jButton1.setText("Reset");
-        button.add(jButton1);
-
-        jButton2.setText("Simpan");
-        button.add(jButton2);
-
-        form.add(button);
-
-        atas.add(form);
-
-        jPanel8.setLayout(new java.awt.GridBagLayout());
-
-        jLabel2.setText("Penjualan");
-        jPanel8.add(jLabel2, new java.awt.GridBagConstraints());
-
-        atas.add(jPanel8);
-
-        add(atas);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelPenjualan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabelPenjualan.setPreferredSize(new java.awt.Dimension(200, 64));
+        jScrollPane1.setViewportView(tabelPenjualan);
 
         add(jScrollPane1);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel2.setText("Detail Penjualan");
+        jPanel2.add(jLabel2);
+        jPanel2.add(jPanel3);
+
+        total_price_lbl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        total_price_lbl.setText("Total: Rp.0");
+        jPanel2.add(total_price_lbl);
+
+        add(jPanel2);
+
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(220, 23));
+
+        tabelDetail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        tabelDetail.setPreferredSize(new java.awt.Dimension(225, 64));
+        jScrollPane2.setViewportView(tabelDetail);
+
+        add(jScrollPane2);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        viewController.changeView("Menu Utama");
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void reset_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_btnActionPerformed
+        controller.getTableDetailModel().setRowCount(0);
+        tabelPenjualan.getSelectionModel().clearSelection();
+        tabelDetail.getSelectionModel().clearSelection();
+    }//GEN-LAST:event_reset_btnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel atas;
-    private javax.swing.JPanel button;
-    private javax.swing.JPanel form;
-    private javax.swing.JTextField harga_obat;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JToggleButton backButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JComboBox<String> jenis_obat_id;
-    private javax.swing.JTextField kode_obat;
-    private javax.swing.JTextField nama_obat;
-    private javax.swing.JSpinner stok_obat;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton reset_btn;
+    private javax.swing.JTable tabelDetail;
+    private javax.swing.JTable tabelPenjualan;
+    private javax.swing.JLabel total_price_lbl;
     // End of variables declaration//GEN-END:variables
 }

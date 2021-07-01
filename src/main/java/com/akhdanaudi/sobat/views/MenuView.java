@@ -6,6 +6,7 @@
 package com.akhdanaudi.sobat.views;
 
 import com.akhdanaudi.sobat.controllers.ObatController;
+import com.akhdanaudi.sobat.controllers.PenjualanController;
 import com.akhdanaudi.sobat.controllers.ViewController;
 import java.awt.CardLayout;
 import java.awt.Container;
@@ -18,22 +19,30 @@ import javax.swing.Box;
 public class MenuView extends javax.swing.JPanel {
     ViewController controller;
     ObatController obatController;
+    PenjualanController penjualanController;
 
     /**
      * Creates new form HomeView
      * @param controller
      * @param jumlahObat
      */
-    public MenuView(ViewController controller, ObatController obatController) {
+    public MenuView(ViewController controller, ObatController obatController, PenjualanController penjualanController) {
         initComponents();
         this.controller = controller;
         this.obatController = obatController;
+        this.penjualanController = penjualanController;
         loadJumlahObat();
+        loadJumlahPenjualan();
     }
     
     public void loadJumlahObat() {
         int jumlahObat = obatController.getJumlahObat();
         jumlah_obat_lbl.setText(String.valueOf(jumlahObat));
+    }
+    
+    public void loadJumlahPenjualan() {
+        int jumlahPenjualan = penjualanController.getJumlahPenjualan();
+        jumlah_penjualan_lbl.setText(String.valueOf(jumlahPenjualan));
     }
 
     /**
@@ -47,7 +56,7 @@ public class MenuView extends javax.swing.JPanel {
 
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        refresh_btn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -62,24 +71,24 @@ public class MenuView extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         menu_laporan = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        jumlah_penjualan_lbl = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 40, 40, 40));
         setLayout(new java.awt.GridLayout(2, 0));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        jPanel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 0, 30, 0));
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
 
-        jButton1.setText("Refresh Data");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        refresh_btn.setText("Refresh Data");
+        refresh_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                refresh_btnActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton1);
+        jPanel4.add(refresh_btn);
 
         jPanel5.add(jPanel4);
 
@@ -91,12 +100,12 @@ public class MenuView extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(0, 171, Short.MAX_VALUE)
+                    .addGap(0, 191, Short.MAX_VALUE)
                     .addComponent(jLabel4)
-                    .addGap(0, 172, Short.MAX_VALUE)))
+                    .addGap(0, 192, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,12 +127,12 @@ public class MenuView extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 107, Short.MAX_VALUE)
+                    .addGap(0, 127, Short.MAX_VALUE)
                     .addComponent(jLabel2)
-                    .addGap(0, 107, Short.MAX_VALUE)))
+                    .addGap(0, 127, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,12 +153,12 @@ public class MenuView extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 118, Short.MAX_VALUE)
+                    .addGap(0, 138, Short.MAX_VALUE)
                     .addComponent(jLabel9)
-                    .addGap(0, 119, Short.MAX_VALUE)))
+                    .addGap(0, 139, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,20 +211,26 @@ public class MenuView extends javax.swing.JPanel {
         menu_penjual.add(jLabel6, java.awt.BorderLayout.PAGE_START);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Penjualan");
+        jLabel8.setText("Buat Penjualan");
         menu_penjual.add(jLabel8, java.awt.BorderLayout.CENTER);
 
         menu_items.add(menu_penjual);
 
         menu_laporan.setBackground(new java.awt.Color(255, 255, 255));
         menu_laporan.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        menu_laporan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menu_laporanMouseClicked(evt);
+            }
+        });
         menu_laporan.setLayout(new java.awt.BorderLayout());
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("20");
-        menu_laporan.add(jLabel7, java.awt.BorderLayout.PAGE_START);
+        jumlah_penjualan_lbl.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jumlah_penjualan_lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jumlah_penjualan_lbl.setText("20");
+        menu_laporan.add(jumlah_penjualan_lbl, java.awt.BorderLayout.PAGE_START);
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Laporan Penjualan");
         menu_laporan.add(jLabel3, java.awt.BorderLayout.CENTER);
 
@@ -229,22 +244,25 @@ public class MenuView extends javax.swing.JPanel {
     }//GEN-LAST:event_menu_obatMouseClicked
 
     private void menu_penjualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_penjualMouseClicked
-        controller.changeView("Menu Penjualan");
+        controller.changeView("Menu Buat Penjualan");
     }//GEN-LAST:event_menu_penjualMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void refresh_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_btnActionPerformed
         loadJumlahObat();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        loadJumlahPenjualan();
+    }//GEN-LAST:event_refresh_btnActionPerformed
+
+    private void menu_laporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_laporanMouseClicked
+        controller.changeView("Menu Penjualan");
+    }//GEN-LAST:event_menu_laporanMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -253,9 +271,11 @@ public class MenuView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel jumlah_obat_lbl;
+    private javax.swing.JLabel jumlah_penjualan_lbl;
     private javax.swing.JPanel menu_items;
     private javax.swing.JPanel menu_laporan;
     private javax.swing.JPanel menu_obat;
     private javax.swing.JPanel menu_penjual;
+    private javax.swing.JButton refresh_btn;
     // End of variables declaration//GEN-END:variables
 }
